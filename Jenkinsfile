@@ -42,10 +42,13 @@ spec:
         }
         stage('Build and Push Image') {
             steps {
-                container('kaniko') {
-                    sh '''
-                    /kaniko/executor --context=${WORKSPACE} --dockerfile=Dockerfile --destination=renum/test:v1.0.0
-                    '''
+                script {
+                    def newVersion = "v1.0.0"  // 새 이미지 버전
+                    container('kaniko') {
+                        sh """
+                        /kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=docker.io/renum/moyur:${newVersion}
+                        """
+                    }
                 }
             }
         }
