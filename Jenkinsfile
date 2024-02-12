@@ -41,7 +41,7 @@ spec:
             steps {
                 container('kaniko') {
                     sh '''
-                    /kaniko/executor --context dir:/Users/yoonsung/eclipse-workspace/moyur --dockerfile=Dockerfile --destination=renum/test:v1.0.0
+                    /kaniko/executor --context . --dockerfile=Dockerfile --destination=renum/test:v1.0.0
                     '''
                 }
             }
