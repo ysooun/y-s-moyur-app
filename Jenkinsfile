@@ -16,6 +16,12 @@ spec:
     volumeMounts:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
+  - name: maven
+    image: maven:3.6.3-jdk-11
+    command:
+    - sleep
+    args:
+    - 99d
   volumes:
     - name: kaniko-secret
       secret:
@@ -29,10 +35,11 @@ spec:
     stages {
 		stage('Build') {
             steps {
-                mvn 'clean package'
+                container('maven') {
+                    sh 'mvn clean package'
+                }
             }
         }
-
         stage('Build and Push Image') {
             steps {
                 container('kaniko') {
@@ -40,11 +47,6 @@ spec:
                     /kaniko/executor --context=${WORKSPACE} --dockerfile=Dockerfile --destination=renum/test:v1.0.0
                     '''
                 }
-            }
-        }
-        stage('Docker Push') {
-            steps {
-                sh 'docker push test:v1.0.0'
             }
         }
     }
