@@ -30,9 +30,9 @@ spec:
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'master',
+                    git branch: 'main',
                         credentialsId: 'github-credentials',
-                        url: 'https://github.com/ysooun/y-s-moyur-app/tree/master/moyur'
+                        url: 'https://github.com/ysooun/y-s-moyur-app'
                 }
             }
         }
