@@ -26,6 +26,15 @@ async function uploadProfileImage() {
     formData.append('image', file);
     formData.append('biography', biography);
     
+    console.log("Adding to FormData: profileDTO =", profileDTO);
+	formData.append('profileDTO', profileDTO);
+	
+	console.log("Adding to FormData: image =", file);
+	formData.append('image', file);
+	
+	console.log("Adding to FormData: biography =", biography);
+	formData.append('biography', biography);
+    
     // 프로필 업데이트 요청 보내기
     try {
         var updateResponse = await fetch('/profile/upload', {
