@@ -27,6 +27,13 @@ spec:
         }
     }
     stages {
+    	stage('Debug') {
+	        steps {
+	            script {
+	                sh 'ls -la /home/jenkins/agent/workspace/moyur-maven/target/'
+	            }
+	        }
+	    }
         stage('Copy JAR') {
 		    steps {
 		        script {
