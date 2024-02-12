@@ -9,7 +9,7 @@
 	  <h1>프로필</h1>
 	  <div class="profile-container">
 	    <div>
-	      <img id="profileImage" th:src="${profileImageUrl}" alt="프로필 사진" />
+	      <img id="profileImage" th:src="${profileImageUrl}"/>
 	      <label for="profileUpload" class="custom-file-upload">업로드</label>
 	      <input type="file" id="profileUpload" onchange="uploadProfileImage()" style="display: none;">
 	    </div>
@@ -51,10 +51,7 @@
 	</div>
 
     <div id="imageCard">
-	    <img id="profileImage" src="profile.jpg" alt="Profile Image">
-	    <button id="likeButton">
-	        <span id="likeIcon">❤️</span>
-	    </button>
+	    <img id="profileImage" src="profile.jpg">
 	</div>
     
     <script src="/js/profile.js"></script>
