@@ -33,7 +33,7 @@ public class ProfileEntity {
     private String profileImageUrl = "기본_이미지_URL";
     
     @Column(name = "biography")
-    private String biography = "기본 바이오";
+    private String biography;
 
 	@Enumerated(EnumType.STRING)
     @Column(name = "userType")
@@ -74,7 +74,7 @@ public class ProfileEntity {
 	}
 	
 	public String getBiography() {
-		return biography;
+	    return (biography == null) ? "기본 바이오" : biography;
 	}
 	public void setBiography(String biography) {
 		this.biography = biography;
