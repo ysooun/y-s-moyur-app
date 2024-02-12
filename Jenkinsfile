@@ -17,7 +17,7 @@ spec:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
   - name: maven
-    image: maven:3.6.3-jdk-11
+    image: 3.9.6-sapmachine-17
     command:
     - sleep
     args:
