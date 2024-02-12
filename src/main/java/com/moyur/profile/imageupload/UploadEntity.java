@@ -16,14 +16,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "uploadImages")
+@Table(name = "uploadimages")
 public class UploadEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_uploadImages")
+    @JoinColumn(name = "user_uploadimages")
     @JsonIgnore
     private UserEntity user;
     
