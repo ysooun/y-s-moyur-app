@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>header</title>
+</head>
+<body>
+  <header class="header">
+    <img th:src="@{/logo/logo.png}" alt="로고">
+    <form id="logoutForm" th:action="@{/logout}" method="post">
+      <button class="btn_login" id="loginButton" onclick="handleLoginLogout(event)">로그인</button>
+    </form>
+  </header>
+</body> 
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Page</title>
+</head>
+<body>
+    <div class="cafe">
+        <div class="carousel" id="cafe-container">
+            <!-- Carousel items -->
+            <div th:each="cafe : ${cafes}" class="cafe-card">
+                <div>
+                    <img th:src="${cafe.imageUrl}" class="cafe-image">
+                </div>
+                <button class="prev" onclick="changeSlide(-1, 1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1, 1)">&#10095;</button>
+                <div class="info-container">
+                    <div class="user-container">
+                        <span class="username" th:text="${cafe.username}"></span>
+                    </div>
+                    <div class="like-container">
+                        <button class="like-button" onclick="likeClicked()">좋아요</button>
+                        <span class="likes" th:text="${cafe.likes}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal items -->
+            <div th:each="cafe, iterStat : ${cafes}" class="modal" id="myModal-${iterStat.index}">
+                <span class="close" onclick="closeModal('myModal-${iterStat.index}')">&times;</span>
+                <img th:src="${cafe.imageUrl}" class="cafe-modal-image">
+                <button class="modal-prev" onclick="changeSlideInModal(-1, 1)">&#10094;</button>
+                <button class="modal-next" onclick="changeSlideInModal(1, 1)">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
