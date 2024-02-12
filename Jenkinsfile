@@ -37,6 +37,14 @@ spec:
             }
         }
  
+        stage('Build with Maven') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+ 
         stage('Build and Push Image') {
             steps {
                 container('kaniko') {
@@ -53,3 +61,4 @@ spec:
         }
     }
 }
+
