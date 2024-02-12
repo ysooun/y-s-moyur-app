@@ -27,23 +27,14 @@ spec:
         }
     }
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    git branch: 'main',
-                        credentialsId: 'github-credentials',
-                        url: 'https://github.com/ysooun/y-s-moyur-app'
-                }
-            }
-        }
- 
-        stage('Build with Maven') {
-            steps {
-                script {
-                    sh 'mvn clean install'
-                }
-            }
-        }
+        stage('Copy JAR') {
+		    steps {
+		        script {
+		            // 빌드된 JAR 파일을 작업 디렉토리로 복사합니다.
+		            sh "cp target/moyur-0.0.1.jar ."
+		        }
+		    }
+		}
  
         stage('Build and Push Image') {
             steps {

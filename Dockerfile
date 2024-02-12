@@ -1,5 +1,5 @@
 # 시작 이미지를 지정합니다.
-FROM openjdk:8-jdk-al
+FROM openjdk:23-slim
 
 # 애플리케이션의 jar 파일에 대한 절대 경로를 변수로 설정합니다.
 ARG JAR_FILE=target/*.jar
