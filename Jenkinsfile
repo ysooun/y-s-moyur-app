@@ -30,8 +30,8 @@ spec:
     	stage('Debug') {
 	        steps {
 	            script {
-	                sh 'ls -la /home/jenkins/agent/workspace/moyur-maven/target/'
-	            }
+                    sh 'cp target/moyur-0.0.1.jar /home/jenkins/agent/workspace/moyur-maven/target/'
+                }
 	        }
 	    }
         stage('Copy JAR') {
