@@ -2,9 +2,9 @@ package com.moyur.profile.imageupload;
 
 public class UploadDTO {
 	private String username;
-    private String uploadImage;
+    private String uploadimage;
     private int likes;
-    private String imageType;
+    private String imagetype;
     
 	public String getUsername() {
 		return username;
@@ -12,11 +12,11 @@ public class UploadDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getUploadImage() {
-		return uploadImage;
+	public String getUploadimage() {
+		return uploadimage;
 	}
-	public void setUploadImage(String uploadImage) {
-		this.uploadImage = uploadImage;
+	public void setUploadimage(String uploadimage) {
+		this.uploadimage = uploadimage;
 	}
 	public int getLikes() {
 		return likes;
@@ -24,10 +24,12 @@ public class UploadDTO {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public String getImageType() {
-		return imageType;
+	public String getImagetype() {
+		return imagetype;
 	}
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
-	}  
+	public void setImagetype(String imagetype) {
+		this.imagetype = imagetype;
+	}
+    
+	
 }

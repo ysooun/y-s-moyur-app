@@ -44,8 +44,8 @@ public class UploadService {
 
             UploadEntity uploadEntity = new UploadEntity();
             uploadEntity.setUser(userEntity);
-            uploadEntity.setImageUrl(imageUrl);
-            uploadEntity.setImageType(imageType);
+            uploadEntity.setImageurl(imageUrl);
+            uploadEntity.setImagetype(imageType);
 
             // 이미지 정보 저장
             uploadRepository.save(uploadEntity);

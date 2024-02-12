@@ -39,10 +39,10 @@ public class ProfileEntity {
     @Column(name = "userType")
     private UserType userType = UserType.NORMAL;
     
-    private int followerCount;
+    private int followercount;
 
     private void updateUserType() {
-        if (this.followerCount >= 10000) {
+        if (this.followercount >= 10000) {
             this.userType = UserType.INFLUENCER;
         } else {
             this.userType = UserType.NORMAL;
@@ -88,20 +88,20 @@ public class ProfileEntity {
 		this.userType = userType;
 	}
 
-	public int getFollowerCount() {
-		return followerCount;
+	public int getFollowercount() {
+		return followercount;
 	}
 
-	public void setFollowerCount(int followerCount) {
-		this.followerCount = followerCount;
+	public void setFollowerCount(int followercount) {
+		this.followercount = followercount;
 	}
-	public void increaseFollowerCount() {
-        this.followerCount++;
+	public void increaseFollowercount() {
+        this.followercount++;
         updateUserType();
     }
 
-    public void decreaseFollowerCount() {
-        this.followerCount--;
+    public void decreaseFollowercount() {
+        this.followercount--;
         updateUserType();
     }
 }

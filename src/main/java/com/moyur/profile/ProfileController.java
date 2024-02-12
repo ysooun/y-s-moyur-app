@@ -62,7 +62,7 @@ public class ProfileController {
                                            @RequestPart(name = "biography", required = false) String biography) {
         try {
             String username = profileDTO.getUsername();
-            String userType = profileDTO.getUserType();
+            String userType = profileDTO.getUsertype();
             String newImageUrl = profileService.uploadProfile(username, profileImage, userType, biography);
             return new ResponseEntity<>(Collections.singletonMap("newImageUrl", newImageUrl), HttpStatus.OK);
         } catch (Exception e) {

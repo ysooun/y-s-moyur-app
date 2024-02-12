@@ -31,7 +31,7 @@ public class UploadController {
             @RequestPart("uploadDTO") UploadDTO uploadDTO,
             @RequestPart("file") MultipartFile file) {
         try {
-            UploadEntity uploadEntity = uploadService.uploadImage(uploadDTO.getUsername(), file, uploadDTO.getImageType());
+            UploadEntity uploadEntity = uploadService.uploadImage(uploadDTO.getUsername(), file, uploadDTO.getImagetype());
             return new ResponseEntity<>(uploadEntity, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(Collections.singletonMap("message", "Failed to upload image. " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,7 +42,7 @@ public class UploadController {
 	public ResponseEntity<List<String>> getImages(@PathVariable String username) {
 	    List<UploadEntity> images = uploadRepository.findAllByUser_Username(username);
 	    List<String> imageUrls = images.stream()
-	        .map(UploadEntity::getImageUrl)
+	        .map(UploadEntity::getImageurl)
 	        .collect(Collectors.toList());
 	            
 	    return new ResponseEntity<>(imageUrls, HttpStatus.OK);

@@ -1,24 +1,24 @@
 package com.moyur.profile;
 
 public class ProfileDTO {
-    private String profileImageUrl;
+    private String profileimageurl;
     private String username;
-    private String userType;
+    private String usertype;
     private String biography;
 
     public ProfileDTO(String profileImageUrl, String username, String userType, String biography) {
-        this.profileImageUrl = profileImageUrl;
+        this.profileimageurl = profileImageUrl;
         this.username = username;
-        this.userType = userType;
+        this.usertype = userType;
         this.biography = biography;
     }
 
-	public String getProfileImageUrl() {
-		return profileImageUrl;
+	public String getProfileimageurl() {
+		return profileimageurl;
 	}
 
-	public void setProfileImageUrl(String profileImageUrl) {
-		this.profileImageUrl = profileImageUrl;
+	public void setProfileimageurl(String profileimageurl) {
+		this.profileimageurl = profileimageurl;
 	}
 
 	public String getUsername() {
@@ -29,12 +29,12 @@ public class ProfileDTO {
 		this.username = username;
 	}
 
-	public String getUserType() {
-		return userType;
+	public String getUsertype() {
+		return usertype;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
 	}
 
 	public String getBiography() {
@@ -43,5 +43,5 @@ public class ProfileDTO {
 
 	public void setBiography(String biography) {
 		this.biography = biography;
-	}  
+	}
 }

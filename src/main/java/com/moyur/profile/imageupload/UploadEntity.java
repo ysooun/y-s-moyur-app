@@ -27,9 +27,11 @@ public class UploadEntity {
     @JsonIgnore
     private UserEntity user;
     
-    private String imageUrl;
+    private String imageurl;
     private int likes;
-    private String imageType;
+    private String imagetype;
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -42,11 +44,11 @@ public class UploadEntity {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImageurl() {
+		return imageurl;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 	public int getLikes() {
 		return likes;
@@ -54,10 +56,10 @@ public class UploadEntity {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public String getImageType() {
-		return imageType;
+	public String getImagetype() {
+		return imagetype;
 	}
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
+	public void setImagetype(String imagetype) {
+		this.imagetype = imagetype;
 	}
 }
