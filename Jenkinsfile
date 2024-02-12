@@ -30,8 +30,7 @@ spec:
         stage('Copy JAR') {
 		    steps {
 		        script {
-		            // 빌드된 JAR 파일을 작업 디렉토리로 복사합니다.
-		            sh "cp target/moyur-0.0.1.jar ."
+		            sh "cp /home/jenkins/agent/workspace/moyur-maven/target/moyur-0.0.1.jar ."
 		        }
 		    }
 		}
@@ -48,7 +47,7 @@ spec:
     }
     post {
         success {
-            echo 'Image build and push successfully..'
+            echo 'Image build and push successfully...'
         }
     }
 }
