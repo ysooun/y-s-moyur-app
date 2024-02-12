@@ -36,16 +36,12 @@ spec:
                 }
             }
         }
-        stage('Build JAR') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
+ 
         stage('Build and Push Image') {
             steps {
                 container('kaniko') {
                     sh '''
-                    /kaniko/executor --context . --dockerfile=Dockerfile --destination=renum/test:v1.0.0
+                    /kaniko/executor --context dir:/Users/yoonsung/eclipse-workspace/moyur --dockerfile=Dockerfile --destination=renum/test:v1.0.0
                     '''
                 }
             }
