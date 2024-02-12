@@ -26,28 +26,11 @@ spec:
 '''
         }
     }
-    environment {
-        JAR_FILE_PATH = ""
-    }
     stages {
-        stage('Debug') {
-		    steps {
-		        script {
-		            echo 'Searching for moyur-0.0.1.jar...'
-		            JAR_FILE_PATH = sh(script: 'find ${WORKSPACE} -name moyur-0.0.1.jar', returnStdout: true).trim()
-		            if (JAR_FILE_PATH) {
-		                echo "Found moyur-0.0.1.jar at: ${JAR_FILE_PATH}"
-		                // 이제 JAR_FILE_PATH를 사용하여 파일을 복사하거나 다른 작업을 수행할 수 있습니다.
-		            } else {
-		                error 'moyur-0.0.1.jar not found!'
-		            }
-		        }
-		    }
-		}
 		stage('Copy JAR') {
 		    steps {
 		        script {
-		            sh "cp ${JAR_FILE_PATH} ."
+		            sh "cp /home/jenkins/agent/workspace/moyur-app/moyur-0.0.1.jar ."
 		        }
 		    }
 		}
