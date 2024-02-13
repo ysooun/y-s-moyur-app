@@ -6,10 +6,10 @@ public class ProfileDTO {
     private String usertype;
     private String biography;
 
-    public ProfileDTO(String profileImageUrl, String username, String userType, String biography) {
-        this.profileimageurl = profileImageUrl;
+    public ProfileDTO(String profileimageurl, String username, String usertype, String biography) {
+        this.profileimageurl = profileimageurl;
         this.username = username;
-        this.usertype = userType;
+        this.usertype = usertype;
         this.biography = biography;
     }
 
@@ -44,4 +44,5 @@ public class ProfileDTO {
 	public void setBiography(String biography) {
 		this.biography = biography;
 	}
+
 }
