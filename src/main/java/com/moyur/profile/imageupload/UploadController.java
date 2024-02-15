@@ -48,3 +48,4 @@ public class UploadController {
 	    return new ResponseEntity<>(imageUrls, HttpStatus.OK);
 	}
 }
+

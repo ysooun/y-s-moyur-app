@@ -14,11 +14,11 @@ function loadImages() {
         })
         .then(imageUrls => {
             var imageCardDiv = document.getElementById('imageCard');
-            imageCardDiv.innerHTML = ''; // Clear the div
+            imageCardDiv.innerHTML = '';
             imageUrls.forEach(url => {
                 var img = document.createElement('img');
                 img.src = url;
-                img.id = 'uploadedImage'; // Set the id
+                img.id = 'uploadedImage';
                 imageCardDiv.appendChild(img);
             });
         })
@@ -35,7 +35,9 @@ function closeImageUploadModal() {
 
 async function uploadImage() {
     var username = document.getElementById('username').textContent;
-    var formData = createFormData(username);
+    var imageType = document.querySelector('#modalImageType').value; 
+
+    var formData = createFormData(username, imageType);
 
     try {
         const response = await fetch('/profile/imageUpload', {
@@ -50,8 +52,8 @@ async function uploadImage() {
         const data = await response.json();
         console.log('Image uploaded successfully:', data);
 
-        loadImages(); // Reload images after successful upload
-        closeImageUploadModal(); // Close the modal after successful upload
+        loadImages();
+        closeImageUploadModal(); 
     } catch (error) {
         console.error('Error uploading image:', error);
     }
@@ -63,7 +65,7 @@ function previewFile() {
     const reader = new FileReader();
 
     reader.addEventListener("load", function () {
-        // convert image file to base64 string
+
         preview.style.backgroundImage = 'url(' + reader.result + ')';
     }, false);
 
@@ -72,12 +74,10 @@ function previewFile() {
     }
 }
 
-function createFormData(username) {
+function createFormData(username, imageType) {
     const formData = new FormData();
-    const imageType = document.querySelector('#modalImageType').value;
     const file = document.querySelector('#modalImageUpload').files[0];
 
-    // Correctly appending uploadDTO as a JSON blob
     const uploadDTO = {
         username: username,
         imageType: imageType
@@ -88,12 +88,3 @@ function createFormData(username) {
 
     return formData;
 }
-
-document.getElementById('likeButton').addEventListener('click', function () {
-    var likeIcon = document.getElementById('likeIcon');
-    if (likeIcon.style.color === 'red') {
-        likeIcon.style.color = '';
-    } else {
-        likeIcon.style.color = 'red';
-    }
-});

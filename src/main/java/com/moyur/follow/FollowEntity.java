@@ -1,4 +1,4 @@
-package com.moyur.follower;
+package com.moyur.follow;
 
 import com.moyur.jwt.UserEntity;
 
@@ -12,19 +12,19 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "followers")
-public class FollowerEntity {
+public class FollowEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @JoinColumn(name = "follower_username")
+    private UserEntity follower;  // 팔로우하는 사람
 
     @ManyToOne
-    @JoinColumn(name = "follower_id")
-    private UserEntity follower;
+    @JoinColumn(name = "following_username")
+    private UserEntity following;  // 팔로우 받는 사람
 
 	public Long getId() {
 		return id;
@@ -34,19 +34,19 @@ public class FollowerEntity {
 		this.id = id;
 	}
 
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
 	public UserEntity getFollower() {
 		return follower;
 	}
 
 	public void setFollower(UserEntity follower) {
 		this.follower = follower;
+	}
+
+	public UserEntity getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(UserEntity following) {
+		this.following = following;
 	}
 }

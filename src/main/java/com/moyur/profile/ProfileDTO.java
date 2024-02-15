@@ -1,48 +1,38 @@
 package com.moyur.profile;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ProfileDTO {
-    private String profileimageurl;
+    private String profileImageUrl;
     private String username;
-    private String usertype;
+    private String userType;
     private String biography;
-
-    public ProfileDTO(String profileimageurl, String username, String usertype, String biography) {
-        this.profileimageurl = profileimageurl;
-        this.username = username;
-        this.usertype = usertype;
-        this.biography = biography;
-    }
-
-	public String getProfileimageurl() {
-		return profileimageurl;
+    
+	public String getProfileImageUrl() {
+		return profileImageUrl;
 	}
-
-	public void setProfileimageurl(String profileimageurl) {
-		this.profileimageurl = profileimageurl;
+	public void setProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	public String getUsertype() {
-		return usertype;
+	public String getUserType() {
+		return userType;
 	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
-
 	public String getBiography() {
 		return biography;
 	}
-
 	public void setBiography(String biography) {
 		this.biography = biography;
 	}
-
 }

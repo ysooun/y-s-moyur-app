@@ -1,12 +1,11 @@
 package com.moyur.profile;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.moyur.aws.S3Service;
 import com.moyur.jwt.UserEntity;
@@ -25,39 +24,39 @@ public class ProfileService {
         this.s3Service = s3Service;
     }
     
-    public List<ProfileEntity> getAllProfiles() {
-        return profileRepository.findAll();
-    }
-    
     public ProfileEntity getProfileByUsername(String username) {
         return profileRepository.findByUser_Username(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+            .orElseThrow(() -> new UsernameNotFoundException("해당 사용자의 프로필을 찾을 수 없습니다."));
     }
-
+    
     @Transactional
     public void createProfileIfNotExist(String username) {
         if (!profileRepository.existsByUser_Username(username)) {
             UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-            createProfile(userEntity);
+                .orElseGet(() -> {
+                    UserEntity newUser = new UserEntity();
+                    newUser.setUsername(username);
+                    return userRepository.save(newUser);
+                });
+
+            ProfileEntity profileEntity = new ProfileEntity();
+            profileEntity.setUser(userEntity);
+            profileRepository.save(profileEntity);
         }
     }
     
-    private ProfileEntity createProfile(UserEntity userEntity) {
-        ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setUser(userEntity);
-        ProfileEntity savedProfileEntity = profileRepository.save(profileEntity);
-        return savedProfileEntity;
-    }
-    
     @Transactional
-    public String uploadProfile(String username, MultipartFile profileImageFile, String userType, String biography) {
+    public String uploadProfile(String username, MultipartFile profileImageFile, String userType) {
         UserEntity userEntity = userRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-        
+            .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+
         // 프로필 찾거나 생성
         ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
-            .orElseGet(() -> createProfile(userEntity));
+                .orElseGet(() -> {
+                    ProfileEntity newProfile = new ProfileEntity();
+                    newProfile.setUser(userEntity);
+                    return profileRepository.save(newProfile);
+                });
 
         // 이미지 파일이 제공된 경우 S3에 업로드
         String profileImageUrl = null;
@@ -66,30 +65,34 @@ public class ProfileService {
                 profileImageUrl = s3Service.s3Upload(profileImageFile);
                 profileEntity.setProfileImageUrl(profileImageUrl);
             } catch (IOException e) {
-                throw new RuntimeException("Image upload failed", e);
+                throw new RuntimeException("업로드 실패", e);
             }
         }
-        
+
         // 사용자 유형 정보가 제공된 경우 업데이트
         if (userType != null) {
-            profileEntity.setUserType(UserType.valueOf(userType));
+            profileEntity.setUserType(userType);
         }
+
+        // 프로필 저장
+        profileRepository.save(profileEntity);
+
+        return profileImageUrl;
+    }
+
+    @Transactional
+    public void updateBiography(String username, String biography) {
+        // 프로필 찾기
+        ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         // 자기소개 정보가 제공된 경우 업데이트
         if (biography != null) {
             profileEntity.setBiography(biography);
         }
-        
+
         // 프로필 저장
         profileRepository.save(profileEntity);
-        
-        return profileImageUrl;
     }
-    
-    @Transactional(readOnly = true)
-    public String getBiography(String username) {
-        return profileRepository.findByUser_Username(username)
-                .map(ProfileEntity::getBiography)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-    }
+
 }

@@ -20,33 +20,30 @@ import lombok.Setter;
 @Setter
 @Table(name = "profiles")
 public class ProfileEntity {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @OneToOne
-    @JoinColumn(name = "user_profile", unique = true)
+    @JoinColumn(name = "profiles_users", unique = true)
     private UserEntity user;
 
-    @Column(name = "profileImageUrl")
-    private String profileImageUrl = "기본_이미지_URL";
-    
-    @Column(name = "biography")
+    @Column(name = "profileimageurl", nullable = false)
+    private String profileImageUrl = "default_profile_image";
+
+    @Column(name = "biography", nullable = true)
     private String biography;
 
-	@Enumerated(EnumType.STRING)
-    @Column(name = "userType")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "usertype", nullable = false)
     private UserType userType = UserType.NORMAL;
-    
-    private int followercount;
 
-    private void updateUserType() {
-        if (this.followercount >= 10000) {
-            this.userType = UserType.INFLUENCER;
-        } else {
-            this.userType = UserType.NORMAL;
-        }
+    @Column(name = "followercount", nullable = false)
+    private int followerCount;
+
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
     }
 
 	public Long getId() {
@@ -72,36 +69,29 @@ public class ProfileEntity {
 	public void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
 	}
-	
+
 	public String getBiography() {
-	    return (biography == null) ? "기본 바이오" : biography;
+		return biography;
 	}
+
 	public void setBiography(String biography) {
-		this.biography = biography;
+	    if (biography != null) {
+	        this.biography = biography;
+	    }
 	}
 
 	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setUserType(String userType) {
+	    if (userType != null && !userType.equals("undefined")) {
+	        this.userType = UserType.fromString(userType);
+	    }
 	}
 
-	public int getFollowercount() {
-		return followercount;
+	public int getFollowerCount() {
+		return followerCount;
 	}
 
-	public void setFollowerCount(int followercount) {
-		this.followercount = followercount;
-	}
-	public void increaseFollowercount() {
-        this.followercount++;
-        updateUserType();
-    }
-
-    public void decreaseFollowercount() {
-        this.followercount--;
-        updateUserType();
-    }
 }

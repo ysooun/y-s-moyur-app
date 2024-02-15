@@ -1,26 +1,32 @@
 package com.moyur.profile;
 
 import java.util.Collections;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.moyur.jwt.CustomUserDetails;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
 
     private final ProfileService profileService;
+    
+    private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
@@ -29,24 +35,20 @@ public class ProfileController {
     @GetMapping("/{username}")
     public String showUserProfile(@PathVariable String username, Authentication authentication, Model model) {
         if (authentication != null && authentication.isAuthenticated()) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String loggedInUsername = userDetails.getUsername();
-            String role = userDetails.getAuthorities().stream().findFirst().orElseThrow(() -> new IllegalStateException("No authorities found")).getAuthority();
+            CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+            String loggedUsername = customUserDetails.getUsername();
+            String role = customUserDetails.getAuthorities().stream().findFirst().orElseThrow(() -> new IllegalStateException("권한이 없습니다.")).getAuthority();
 
             if (role.equals("ROLE_USER")) {
-                // 로그인한 사용자와 요청한 사용자가 일치하는지 확인
-                boolean isMyProfile = loggedInUsername.equals(username);
+                boolean isMyProfile = loggedUsername.equals(username);
                 model.addAttribute("isMyProfile", isMyProfile);
-
-                // 로그인한 사용자와 요청한 사용자가 일치할 때만 프로필 생성
-                if (isMyProfile) {
-                    profileService.createProfileIfNotExist(username);
-                }
 
                 ProfileEntity profileEntity = profileService.getProfileByUsername(username);
 
                 model.addAttribute("username", username);
-                model.addAttribute("profileImageUrl", profileEntity.getProfileImageUrl());
+                model.addAttribute("profileimageurl", profileEntity.getProfileImageUrl());
+                model.addAttribute("biography", profileEntity.getBiography()); 
+
                 return "profile";
             } else {
                 return "redirect:/login";
@@ -56,23 +58,28 @@ public class ProfileController {
         }
     }
 
+
     @PostMapping("/upload")
-    public ResponseEntity<?> updateProfile(@RequestPart(name = "profileDTO", required = false) ProfileDTO profileDTO,
-                                           @RequestPart(name = "image", required = false) MultipartFile profileImage,
-                                           @RequestPart(name = "biography", required = false) String biography) {
+    public ResponseEntity<?> uploadProfile(@RequestParam("username") String username,
+                                           @RequestParam("userType") String userType,
+                                           @RequestParam(value = "image", required = false) MultipartFile image) {
         try {
-            String username = profileDTO.getUsername();
-            String userType = profileDTO.getUsertype();
-            String newImageUrl = profileService.uploadProfile(username, profileImage, userType, biography);
+            logger.info("uploadProfile 시작: username = {}, userType = {}", username, userType);
+            String newImageUrl = profileService.uploadProfile(username, image, userType);
+            logger.info("uploadProfile 완료: newImageUrl = {}", newImageUrl);
             return new ResponseEntity<>(Collections.singletonMap("newImageUrl", newImageUrl), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(Collections.singletonMap("message", "Failed to update profile. " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("uploadProfile 실패: ", e);
+            return new ResponseEntity<>(Collections.singletonMap("message", "업로드 실패" + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
-    @GetMapping("/getBio")
-    public ResponseEntity<?> getBiography(@RequestParam String username) {
-        String biography = profileService.getBiography(username);
-        return ResponseEntity.ok(Collections.singletonMap("biography", biography));
+    @PostMapping("/updateBiography")
+    public ResponseEntity<?> updateBiography(@RequestBody Map<String, String> params) {
+        String username = params.get("username");
+        String biography = params.get("biography");
+        profileService.updateBiography(username, biography);
+        return ResponseEntity.ok(Collections.singletonMap("message", "바이오그래피 업데이트 성공"));
     }
 }
+

@@ -9,7 +9,7 @@
 	  <h1>프로필</h1>
 	  <div class="profile-container">
 	    <div>
-	      <img id="profileImage" th:src="${profileImageUrl}"/>
+	      <img id="profileImage" th:src="${profileimageurl}"/>
 	      <label for="profileUpload" class="custom-file-upload">업로드</label>
 	      <input type="file" id="profileUpload" onchange="uploadProfileImage()" style="display: none;">
 	    </div>
@@ -23,8 +23,8 @@
 	        <button id="followButton" data-username="${username}">Follow</button>
 	      </h2>
 	      <div>
-	        <textarea id="biography" placeholder="자기소개를 입력해주세요."></textarea>
-	        <button id="submitBioBtn">제출</button>
+	        <textarea id="biography" placeholder="자기소개를 입력해주세요." th:text="${biography}"></textarea>
+	        <button id="submitBioBtn" onclick="updateBiography()">제출</button>
 	      </div>
 	      <div>
 	        <button id="imageUploadButton" onclick="openImageUploadModal()">사진 업로드</button>
@@ -55,8 +55,7 @@
 	</div>
     
     <script src="/js/profile.js"></script>
-    <script src="/js/biography.js"></script>
-    <script src="/js/follower.js"></script>
+    <script src="/js/follow.js"></script>
     <script src="/js/imageUpload.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ package com.moyur.jwt;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.moyur.follower.FollowerEntity;
+import com.moyur.follow.FollowEntity;
 import com.moyur.profile.ProfileEntity;
 
 import jakarta.persistence.CascadeType;
@@ -30,18 +30,22 @@ public class UserEntity {
     
     @Column(unique = true)
     private String username;  
+    
     private String password;
     private String email;
     private String role;
     
+    @Column(name = "followcount")
+    private int followCount = 0;
+    
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ProfileEntity profile;
     
-    @OneToMany(mappedBy = "user")
-    private List<FollowerEntity> followers = new ArrayList<>();
+    @OneToMany(mappedBy = "following")
+    private List<FollowEntity> followers = new ArrayList<>();
 
     @OneToMany(mappedBy = "follower")
-    private List<FollowerEntity> followings = new ArrayList<>(); 
+    private List<FollowEntity> followings = new ArrayList<>(); 
     
     public Long getId() {
 		return id;
@@ -81,10 +85,10 @@ public class UserEntity {
 		this.profile = profile;
 	}
 	
-	public List<FollowerEntity> getFollowers() {
+	public List<FollowEntity> getFollowers() {
 		return followers;
 	}
-	public void setFollowers(List<FollowerEntity> followers) {
+	public void setFollowers(List<FollowEntity> followers) {
 		this.followers = followers;
 	}
 }

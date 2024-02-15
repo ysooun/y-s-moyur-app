@@ -1,5 +1,10 @@
 package com.moyur.profile.imageupload;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UploadDTO {
 	private String username;
     private String uploadimage;

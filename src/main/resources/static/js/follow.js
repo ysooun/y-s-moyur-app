@@ -4,7 +4,7 @@ function updateFollowButton(btn) {
     var loggedInUsername = document.getElementById('username').textContent;
 
     // 팔로우 상태 확인
-    fetch('/followers/exists/' + targetUsername + '/' + loggedInUsername)
+    fetch('/follows/exists/' + targetUsername + '/' + loggedInUsername)
     .then(response => response.json())
     .then(data => {
         if (data.exists) { // 팔로우 중인 경우
@@ -22,7 +22,7 @@ function follow(btn) {
     var targetUsername = window.location.pathname.split('/profile/')[1];
     var loggedInUsername = document.getElementById('username').textContent;
 
-    fetch('/followers/' + targetUsername + '/' + loggedInUsername, {
+    fetch('/follows/' + targetUsername + '/' + loggedInUsername, {
         method: 'POST'
     }).then(response => {
         if (response.ok) {
@@ -38,7 +38,7 @@ function unfollow(btn) {
     var targetUsername = window.location.pathname.split('/profile/')[1];
     var loggedInUsername = document.getElementById('username').textContent;
 
-    fetch('/followers/' + targetUsername + '/' + loggedInUsername, {
+    fetch('/follows/' + targetUsername + '/' + loggedInUsername, {
         method: 'DELETE'
     }).then(response => {
         if (response.ok) {
