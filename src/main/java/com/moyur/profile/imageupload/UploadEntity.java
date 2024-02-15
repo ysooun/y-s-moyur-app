@@ -28,9 +28,12 @@ public class UploadEntity {
     @JsonIgnore
     private UserEntity user;
     
-    private String imageurl;
+    @Column(name = "imageurl")
+    private String imageUrl;
+    @Column(name = "likes")
     private int likes;
-    private String imagetype;
+    @Column(name = "imagetype")
+    private String imageType;
     
     
 	public Long getId() {
@@ -45,11 +48,11 @@ public class UploadEntity {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-	public String getImageurl() {
-		return imageurl;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public int getLikes() {
 		return likes;
@@ -57,10 +60,10 @@ public class UploadEntity {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	public String getImagetype() {
-		return imagetype;
+	public String getImageType() {
+		return imageType;
 	}
-	public void setImagetype(String imagetype) {
-		this.imagetype = imagetype;
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
 }

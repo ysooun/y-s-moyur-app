@@ -35,7 +35,7 @@ function closeImageUploadModal() {
 
 async function uploadImage() {
     var username = document.getElementById('username').textContent;
-    var imageType = document.querySelector('#modalImageType').value; 
+    var imageType = document.querySelector('#modalImageType').value;
 
     var formData = createFormData(username, imageType);
 
@@ -65,7 +65,6 @@ function previewFile() {
     const reader = new FileReader();
 
     reader.addEventListener("load", function () {
-
         preview.style.backgroundImage = 'url(' + reader.result + ')';
     }, false);
 

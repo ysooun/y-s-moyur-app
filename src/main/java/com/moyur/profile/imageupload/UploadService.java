@@ -28,14 +28,14 @@ public class UploadService {
     }
 
     @Transactional
-    public UploadEntity uploadImage(String username, MultipartFile imageFile, String imageType) {
+    public UploadEntity uploadImage(String username, String imageType, MultipartFile imageFile) {
         try {
             // 이미지 파일을 S3에 업로드하고, 업로드된 이미지의 URL을 가져옴
             String imageUrl;
             try {
                 imageUrl = s3Service.s3Upload(imageFile); 
             } catch (IOException e) {
-                throw new RuntimeException("Image upload failed", e);
+                throw new RuntimeException("이미지 업로드 실패", e);
             }
 
             // 이미지 정보 생성
@@ -44,8 +44,8 @@ public class UploadService {
 
             UploadEntity uploadEntity = new UploadEntity();
             uploadEntity.setUser(userEntity);
-            uploadEntity.setImageurl(imageUrl);
-            uploadEntity.setImagetype(imageType);
+            uploadEntity.setImageUrl(imageUrl);
+            uploadEntity.setImageType(imageType);
 
             // 이미지 정보 저장
             uploadRepository.save(uploadEntity);

@@ -19,11 +19,11 @@ public class FollowEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "follower_username")
+    @JoinColumn(name = "follower")
     private UserEntity follower;  // 팔로우하는 사람
 
     @ManyToOne
-    @JoinColumn(name = "following_username")
+    @JoinColumn(name = "following")
     private UserEntity following;  // 팔로우 받는 사람
 
 	public Long getId() {
