@@ -65,7 +65,7 @@ async function updateBiography() {
         console.log('Success:', await updateResponse.json());
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to update biography');
+        alert('Failed to update biography.');
     }
 }
 
