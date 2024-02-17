@@ -35,60 +35,73 @@ public class UserEntity {
     private String email;
     private String role;
     
-    @Column(name = "followcount")
-    private int followCount = 0;
-    
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ProfileEntity profile;
     
     @OneToMany(mappedBy = "following")
-    private List<FollowEntity> followers = new ArrayList<>();
-
+    private List<FollowEntity> follower = new ArrayList<>();
     @OneToMany(mappedBy = "follower")
-    private List<FollowEntity> followings = new ArrayList<>(); 
+    private List<FollowEntity> following = new ArrayList<>();
+
     
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getRole() {
 		return role;
 	}
+
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 	public ProfileEntity getProfile() {
 		return profile;
 	}
+
 	public void setProfile(ProfileEntity profile) {
 		this.profile = profile;
 	}
 	
-	public List<FollowEntity> getFollowers() {
-		return followers;
+	public List<FollowEntity> getFollower() {
+		return follower;
 	}
-	public void setFollowers(List<FollowEntity> followers) {
-		this.followers = followers;
+	public void setFollower(List<FollowEntity> follower) {
+		this.follower = follower;
+	}
+	public List<FollowEntity> getFollowing() {
+		return following;
+	}
+	public void setFollowing(List<FollowEntity> following) {
+		this.following = following;
 	}
 }

@@ -48,18 +48,19 @@ public class ProfileService {
     @Transactional
     public String uploadProfile(String username, MultipartFile profileImageFile, String userType) {
         UserEntity userEntity = userRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+                                              .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         // 프로필 찾거나 생성
         ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
-                .orElseGet(() -> {
-                    ProfileEntity newProfile = new ProfileEntity();
-                    newProfile.setUser(userEntity);
-                    return profileRepository.save(newProfile);
-                });
+                                                       .orElseGet(() -> {
+                                                           ProfileEntity newProfile = new ProfileEntity();
+                                                           newProfile.setUser(userEntity);
+                                                           return profileRepository.save(newProfile);
+                                                       });
 
-        // 이미지 파일이 제공된 경우 S3에 업로드
         String profileImageUrl = null;
+        
+        // 이미지 파일이 제공된 경우 S3에 업로드
         if (profileImageFile != null) {
             try {
                 profileImageUrl = s3Service.s3Upload(profileImageFile);
@@ -84,7 +85,7 @@ public class ProfileService {
     public void updateBiography(String username, String biography) {
         // 프로필 찾기
         ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+                                                       .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         // 자기소개 정보가 제공된 경우 업데이트
         if (biography != null) {
@@ -94,5 +95,4 @@ public class ProfileService {
         // 프로필 저장
         profileRepository.save(profileEntity);
     }
-
 }

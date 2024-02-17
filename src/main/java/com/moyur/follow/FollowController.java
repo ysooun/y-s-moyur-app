@@ -24,12 +24,13 @@ public class FollowController {
     @PostMapping("/{followingUsername}/{followerUsername}")
     public ResponseEntity<Void> follow(@PathVariable String followingUsername, @PathVariable String followerUsername) {
         followService.follow(followingUsername, followerUsername);
+        followService.updateFollowerAndFollowingCounts(followerUsername, followingUsername);
         return ResponseEntity.ok().build();
     }
-
     @DeleteMapping("/{followingUsername}/{followerUsername}")
     public ResponseEntity<Void> unfollow(@PathVariable String followingUsername, @PathVariable String followerUsername) {
         followService.unfollow(followingUsername, followerUsername);
+        followService.updateFollowerAndFollowingCounts(followerUsername, followingUsername);
         return ResponseEntity.ok().build();
     }
 

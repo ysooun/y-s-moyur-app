@@ -25,6 +25,16 @@ public class UploadController {
         this.uploadService = uploadService;
         this.uploadRepository = uploadRepository;
     }
+    
+    @GetMapping("/images/{username}")
+	public ResponseEntity<List<String>> getImages(@PathVariable String username) {
+	    List<UploadEntity> images = uploadRepository.findAllByUserid_Username(username);
+	    List<String> imageUrls = images.stream()
+	        .map(UploadEntity::getImageUrl)
+	        .collect(Collectors.toList());
+	            
+	    return new ResponseEntity<>(imageUrls, HttpStatus.OK);
+	}
 
     @PostMapping(value = "/imageUpload", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadImage(
@@ -37,15 +47,5 @@ public class UploadController {
             return new ResponseEntity<>(Collections.singletonMap("message", "Failed to upload image. " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-	@GetMapping("/images/{username}")
-	public ResponseEntity<List<String>> getImages(@PathVariable String username) {
-	    List<UploadEntity> images = uploadRepository.findAllByUser_Username(username);
-	    List<String> imageUrls = images.stream()
-	        .map(UploadEntity::getImageUrl)
-	        .collect(Collectors.toList());
-	            
-	    return new ResponseEntity<>(imageUrls, HttpStatus.OK);
-	}
 }
 

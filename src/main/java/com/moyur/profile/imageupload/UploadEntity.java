@@ -17,16 +17,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "uploadimages")
+@Table(name = "images")
 public class UploadEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long imageid;
 
     @ManyToOne
-    @JoinColumn(name = "user_uploadimages")
+    @JoinColumn(name = "images_userid")
     @JsonIgnore
-    private UserEntity user;
+    private UserEntity userid;
     
     @Column(name = "imageurl")
     private String imageUrl;
@@ -34,32 +34,36 @@ public class UploadEntity {
     private int likes;
     @Column(name = "imagetype")
     private String imageType;
+ 
     
+    public Long getImageid() {
+		return imageid;
+	}
+	public void setImageid(Long imageid) {
+		this.imageid = imageid;
+	}
+	
+    public UserEntity getUserid() {
+		return userid;
+	}
+	public void setUserid(UserEntity userid) {
+		this.userid = userid;
+	}
     
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public UserEntity getUser() {
-		return user;
-	}
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
 	public String getImageUrl() {
 		return imageUrl;
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+	
 	public int getLikes() {
 		return likes;
 	}
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
+	
 	public String getImageType() {
 		return imageType;
 	}

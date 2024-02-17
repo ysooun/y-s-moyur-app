@@ -43,7 +43,7 @@ public class UploadService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
             UploadEntity uploadEntity = new UploadEntity();
-            uploadEntity.setUser(userEntity);
+            uploadEntity.setUserid(userEntity);
             uploadEntity.setImageUrl(imageUrl);
             uploadEntity.setImageType(imageType);
 

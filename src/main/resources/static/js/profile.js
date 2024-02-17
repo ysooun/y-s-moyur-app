@@ -37,7 +37,7 @@ async function uploadProfileImage() {
         profileImage.src = data.newImageUrl + '?t=' + new Date().getTime();
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to upload profile image');
+        alert('이미지 업로드 실패');
     }
 }
 

@@ -1,10 +1,10 @@
 // 팔로우 상태를 확인하고 버튼의 상태를 업데이트하는 함수
 function updateFollowButton(btn) {
     var targetUsername = window.location.pathname.split('/profile/')[1];
-    var loggedInUsername = document.getElementById('username').textContent;
+    var loggedUsername = document.getElementById('username').textContent;
 
     // 팔로우 상태 확인
-    fetch('/follows/exists/' + targetUsername + '/' + loggedInUsername)
+    fetch('/follows/exists/' + targetUsername + '/' + loggedUsername)
     .then(response => response.json())
     .then(data => {
         if (data.exists) { // 팔로우 중인 경우
