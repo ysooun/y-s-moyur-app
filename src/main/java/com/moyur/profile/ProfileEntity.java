@@ -23,11 +23,11 @@ public class ProfileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long profileid;
 
     @OneToOne
     @JoinColumn(name = "profiles_users", unique = true)
-    private UserEntity user;
+    private UserEntity userid;
 
     @Column(name = "profileimageurl", nullable = false)
     private String profileImageUrl = "default_profile_image";
@@ -45,19 +45,20 @@ public class ProfileEntity {
     private int followingCount;
     
     
-    public Long getId() {
-		return id;
+    public Long getProfileId() {
+		return profileid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setProfileId(Long profileid) {
+		this.profileid = profileid;
 	}
 	
-	public UserEntity getUser() {
-		return user;
+	public UserEntity getUserid() {
+		return userid;
 	}
-	public void setUser(UserEntity user) {
-		this.user = user;
+	public void setUserid(UserEntity userid) {
+		this.userid = userid;
 	}
+	
 	
 	public String getProfileImageUrl() {
 		return profileImageUrl;

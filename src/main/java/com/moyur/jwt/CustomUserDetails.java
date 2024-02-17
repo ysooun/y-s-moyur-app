@@ -29,7 +29,9 @@ public class CustomUserDetails  implements UserDetails {
 
         collection.add(new GrantedAuthority() {
 
-            @Override
+            private static final long serialVersionUID = 1L;
+
+			@Override
             public String getAuthority() {
 
             	return userEntity.getRole();

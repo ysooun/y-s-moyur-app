@@ -24,7 +24,7 @@ public class UploadEntity {
     private Long imageid;
 
     @ManyToOne
-    @JoinColumn(name = "images_userid")
+    @JoinColumn(name = "images_users")
     @JsonIgnore
     private UserEntity userid;
     

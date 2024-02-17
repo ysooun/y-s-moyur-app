@@ -70,16 +70,14 @@ public class FollowService {
         int followerCount = getFollowerCount(followingUsername);
         int followingCount = getFollowingCount(followerUsername);
 
-        ProfileEntity profileFollower = profileRepository.findByUser_Username(followerUsername)
+        ProfileEntity profileFollower = profileRepository.findByUserid_Username(followerUsername)
             .orElseThrow(() -> new IllegalArgumentException("Profile not found for user: " + followerUsername));
-        ProfileEntity profileFollowing = profileRepository.findByUser_Username(followingUsername)
+        ProfileEntity profileFollowing = profileRepository.findByUserid_Username(followingUsername)
             .orElseThrow(() -> new IllegalArgumentException("Profile not found for user: " + followingUsername));
 
-        // 프로필 엔티티의 일부 필드만 업데이트
         profileFollower.setFollowingCount(followingCount);
         profileFollowing.setFollowerCount(followerCount);
 
-        // 변경된 엔티티들만 저장
         profileRepository.save(profileFollower);
         profileRepository.save(profileFollowing);
     }

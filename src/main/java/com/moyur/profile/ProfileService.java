@@ -25,13 +25,13 @@ public class ProfileService {
     }
     
     public ProfileEntity getProfileByUsername(String username) {
-        return profileRepository.findByUser_Username(username)
+        return profileRepository.findByUserid_Username(username)
             .orElseThrow(() -> new UsernameNotFoundException("해당 사용자의 프로필을 찾을 수 없습니다."));
     }
     
     @Transactional
     public void createProfileIfNotExist(String username) {
-        if (!profileRepository.existsByUser_Username(username)) {
+        if (!profileRepository.existsByUserid_Username(username)) {
             UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseGet(() -> {
                     UserEntity newUser = new UserEntity();
@@ -40,7 +40,7 @@ public class ProfileService {
                 });
 
             ProfileEntity profileEntity = new ProfileEntity();
-            profileEntity.setUser(userEntity);
+            profileEntity.setUserid(userEntity);
             profileRepository.save(profileEntity);
         }
     }
@@ -51,10 +51,10 @@ public class ProfileService {
                                               .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         // 프로필 찾거나 생성
-        ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
+        ProfileEntity profileEntity = profileRepository.findByUserid_Username(username)
                                                        .orElseGet(() -> {
                                                            ProfileEntity newProfile = new ProfileEntity();
-                                                           newProfile.setUser(userEntity);
+                                                           newProfile.setUserid(userEntity);
                                                            return profileRepository.save(newProfile);
                                                        });
 
@@ -84,7 +84,7 @@ public class ProfileService {
     @Transactional
     public void updateBiography(String username, String biography) {
         // 프로필 찾기
-        ProfileEntity profileEntity = profileRepository.findByUser_Username(username)
+        ProfileEntity profileEntity = profileRepository.findByUserid_Username(username)
                                                        .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         // 자기소개 정보가 제공된 경우 업데이트

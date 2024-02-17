@@ -5,6 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
-    Optional<ProfileEntity> findByUser_Username(String username);
-    boolean existsByUser_Username(String username);
+    Optional<ProfileEntity> findByUserid_Username(String username);
+    boolean existsByUserid_Username(String username);
 }

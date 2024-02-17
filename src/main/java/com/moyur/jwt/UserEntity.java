@@ -26,7 +26,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userid;
     
     @Column(unique = true)
     private String username;  
@@ -35,8 +35,8 @@ public class UserEntity {
     private String email;
     private String role;
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private ProfileEntity profile;
+    @OneToOne(mappedBy = "userid", cascade = CascadeType.ALL)
+    private ProfileEntity profileid;
     
     @OneToMany(mappedBy = "following")
     private List<FollowEntity> follower = new ArrayList<>();
@@ -44,18 +44,16 @@ public class UserEntity {
     private List<FollowEntity> following = new ArrayList<>();
 
     
-	public Long getId() {
-		return id;
+	public Long getUserid() {
+		return userid;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -63,7 +61,6 @@ public class UserEntity {
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -71,7 +68,6 @@ public class UserEntity {
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -79,17 +75,15 @@ public class UserEntity {
 	public String getRole() {
 		return role;
 	}
-
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public ProfileEntity getProfile() {
-		return profile;
+	
+	public ProfileEntity getProfileid() {
+		return profileid;
 	}
-
-	public void setProfile(ProfileEntity profile) {
-		this.profile = profile;
+	public void setProfileid(ProfileEntity profileid) {
+		this.profileid = profileid;
 	}
 	
 	public List<FollowEntity> getFollower() {
