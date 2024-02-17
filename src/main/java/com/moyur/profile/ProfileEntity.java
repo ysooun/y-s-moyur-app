@@ -79,10 +79,8 @@ public class ProfileEntity {
 	public UserType getUserType() {
 		return userType;
 	}
-	public void setUserType(String userType) {
-	    if (userType != null && !userType.equals("undefined")) {
-	        this.userType = UserType.fromString(userType);
-	    }
+	public void setUserType(UserType userType) {
+	    this.userType = userType;
 	}
 	
 	public int getFollowerCount() {

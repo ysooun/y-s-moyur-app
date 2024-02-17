@@ -72,7 +72,8 @@ public class ProfileService {
 
         // 사용자 유형 정보가 제공된 경우 업데이트
         if (userType != null) {
-            profileEntity.setUserType(userType);
+            UserType userTypeEnum = UserType.fromString(userType);  
+            profileEntity.setUserType(userTypeEnum);  
         }
 
         // 프로필 저장
@@ -80,6 +81,7 @@ public class ProfileService {
 
         return profileImageUrl;
     }
+
 
     @Transactional
     public void updateBiography(String username, String biography) {
